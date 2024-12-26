@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import RegistrationPage from './components/RegistrationPage';
+import LoginPage from './components/LoginPage';
+import DoctorListPage from './components/DoctorListPage';
+import AppointmentBookingPage from './components/AppointmentBookingPage';
+import UserDashboard from './components/UserDashboard';
 
 function App() {
+  const [selectedDateForAppointment, setSelectedDateForAppointment] = useState(new Date());
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/doctors" element={
+              <DoctorListPage
+                updateSelectedDateForAppointment={((val)=>{setSelectedDateForAppointment(val)})}
+              />
+            } 
+           />
+          <Route path="/book-appointment" element={
+            <AppointmentBookingPage 
+              seletedDateForAppointment={selectedDateForAppointment} 
+              updateSelectedDateForAppointment={((val)=>{setSelectedDateForAppointment(val)})} 
+              />
+            } 
+          />
+          <Route path="/dashboard" element={<UserDashboard />} />
+        </Routes>
+    </Router>
   );
 }
 
