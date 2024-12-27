@@ -28,7 +28,9 @@ const LayoutHOC = (Component) => {
     return (
       <>
         <Navbar />
-        <Component {...props} />
+        <div className="pt-[80px]">
+          <Component {...props} />
+        </div>
       </>
     );
   };
